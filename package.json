@@ -1,0 +1,26 @@
+{
+  "name": "skyboxtool",
+  "version": "1.0.0",
+  "description": "no description",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "node index.mjs"
+  },
+  "keywords": [
+    "tool"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skyboooox/skytool.git"
+  },
+  "author": "skyboooox",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/skyboooox/KinopioHub/issues"
+  },
+  "dependencies": {
+    "events": "^3.3.0",
+    "nanoid": "^5.0.7"
+  }
+}
