@@ -1,6 +1,6 @@
 {
   "name": "skyboxtool",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "no description",
   "main": "index.mjs",
   "type": "module",
