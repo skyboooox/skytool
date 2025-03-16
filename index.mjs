@@ -32,7 +32,7 @@ export async function fetchWithTimeout(url = '/', timeout = 5000) {
       console.warn('Request timed out');
       return null;
     }
-    throw error; 
+    throw error;
   }
 }
 
@@ -111,13 +111,54 @@ export function getHash(splitter) {
   hash = hash.replace('#', '').split(splitter || '&');
   let obj = {};
   for (var kv = 0; kv < hash.length; kv++) {
-      var flag = hash[kv].split("=");
-      if (flag.length == 1) {
-          obj[flag[0]] = true;
-      } else {
-          obj[flag[0]] = flag[1];
-      }
+    var flag = hash[kv].split("=");
+    if (flag.length == 1) {
+      obj[flag[0]] = true;
+    } else {
+      obj[flag[0]] = flag[1];
+    }
   }
   return obj;
 
+}
+
+import MobileDetect from "mobile-detect";
+import exp from "constants";
+/**
+ * 
+ * @param {string} from data to detect. dafault: window.navigator.userAgent
+ * @param {Boolean} more return all detect data
+ * @returns 
+ */
+export function isMobile(from = window.navigator.userAgent, more = false) {
+  const detect = new MobileDetect(from);
+  if (more) return detect;
+  return detect.phone()
+}
+
+/**
+ * @param {Number} ratio_w ratio of width eg: 16
+ * @param {Number} ratio_h ratio of height eg: 9
+ * @param {Number} w viewport width. default: window.innerWidth
+ * @param {Number} h viewport height. default: window.innerHeight
+ * @returns 
+ */
+export function AutoRatio(ratio_w, ratio_h, w = window.innerWidth, h = window.innerHeight) {
+  if (h > w / ratio_w * ratio_h)
+    return {
+      width: w,
+      height: w / ratio_w * ratio_h,
+      oritation: 'h'
+
+    }
+  return {
+    width: h / ratio_h * ratio_w,
+    height: h,
+    oritation: 'w'
+
+  }
+}
+
+export function isDarkMode() {
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
 }

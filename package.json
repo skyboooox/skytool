@@ -1,6 +1,6 @@
 {
   "name": "skyboxtool",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "no description",
   "main": "index.mjs",
   "type": "module",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "events": "^3.3.0",
+    "mobile-detect": "^1.4.5",
     "nanoid": "^5.0.7"
   }
 }
