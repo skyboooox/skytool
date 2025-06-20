@@ -17,19 +17,19 @@ export async function delay(ms) {
  * @param {number} timeout
  * @returns {Promise<Response>} Response
  */
-export async function fetchWithTimeout(url = "/", timeout = 5000) {
+export async function fetchWithTimeout(url = '/', options = {}, timeout = 5000) {
   const controller = new AbortController();
   const { signal } = controller;
 
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
   try {
-    const response = await fetch(url, { signal });
+    const response = await fetch(url, { ...options, signal });
     clearTimeout(timeoutId);
     return response;
   } catch (error) {
-    if (error.name === "AbortError") {
-      console.warn("Request timed out");
+    if (error.name === 'AbortError') {
+      console.warn('Request timed out');
       return null;
     }
     throw error;
