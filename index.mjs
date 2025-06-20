@@ -56,8 +56,9 @@ export function loop(tps = 60) {
   let callbacks = [];
   let isRunning = false;
   let warningCounter = 0;
+  let timeoutId = null;
 
-  async function loop() {
+  async function loopInner() {
     if (!isRunning) return;
 
     const currentTime = Date.now();
@@ -82,13 +83,13 @@ export function loop(tps = 60) {
       }
     }
 
-    setTimeout(loop, tickDuration - (Date.now() - currentTime));
+    timeoutId = setTimeout(loopInner, tickDuration - (Date.now() - currentTime));
   }
 
   function start() {
     if (!isRunning) {
       isRunning = true;
-      loop();
+      loopInner();
     }
   }
 
@@ -96,6 +97,15 @@ export function loop(tps = 60) {
     callbacks.push(callback);
     start();
   }
+
+  funcLoop.destroy = function () {
+    isRunning = false;
+    callbacks = [];
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  };
 
   return funcLoop;
 }
